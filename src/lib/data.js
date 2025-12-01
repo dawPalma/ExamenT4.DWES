@@ -28,6 +28,18 @@ export async function obtenerLibroDB(id) {
     return rows[0]
 }
 
+export async function obtenerAutoresDB(query) {
+    const sql = 'select * from `autores` where nombre like ?';
+    const values = ["%" + query + "%"]
+    const [autores] = await db.query(sql, values);
+
+    // Introducimos un retardo artificial
+    await new Promise(resolve => setTimeout(resolve, 2000))
+
+    return autores
+}
+
+
 
 
 // API
