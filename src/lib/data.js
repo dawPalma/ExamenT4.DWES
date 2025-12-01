@@ -6,21 +6,19 @@ import { db } from '@/lib/db'
 
 // BASE DE DATOS
 
-export async function obtenerAlumnosDB(query) {
-    const sql = 'select * from `alumnos` where nombre like ?';
+export async function obtenerLibrosDB(query) {
+    const sql = 'select * from `libros` where titulo like ?';
     const values = ["%" + query + "%"]
-    // const values = ['%teclado%', "%a%"]
-    const [alumnos] = await db.query(sql, values);
+    const [libros] = await db.query(sql, values);
 
     // Introducimos un retardo artificial
     await new Promise(resolve => setTimeout(resolve, 2000))
 
-    return alumnos
+    return libros
 }
 
-
-export async function obtenerAlumnoDB(id) {
-    const sql = 'select * from alumnos where id = ?';
+export async function obtenerLibroDB(id) {
+    const sql = 'select * from libros where id = ?';
     const values = [id]
     const [rows] = await db.query(sql, values);
 
@@ -29,85 +27,48 @@ export async function obtenerAlumnoDB(id) {
 
     return rows[0]
 }
-
-
-export async function obtenerProfesoresDB(query) {
-    const sql = 'select * from `profesores` where nombre like ?';
-    const values = ["%" + query + "%"]
-    // const values = ['%teclado%', "%a%"]
-    const [profesores] = await db.query(sql, values);
-
-    // Introducimos un retardo artificial
-    await new Promise(resolve => setTimeout(resolve, 2000))
-
-    return profesores
-}
-
-
-export async function obtenerProfesorDB(id) {
-    const sql = 'select * from profesores where id = ?';
-    const values = [id]
-    const [rows] = await db.query(sql, values);
-
-    // Introducimos un retardo artificial
-    await new Promise(resolve => setTimeout(resolve, 2000))
-
-    return rows[0]
-}
-
-
 
 
 
 // API
-
-
-export async function obtenerAlumnosAPI(query) {
-    const response = await fetch('http://localhost:3001/alumnos')
-    const alumnos = await response.json()
-
-    // Introducimos un retardo artificial
-    // await new Promise(resolve => setTimeout(resolve, 2000))
-
-    return alumnos.filter(a => a.nombre.toLowerCase().includes(query))
-}
-
-
-
-export async function obtenerAlumnoAPI(id) {
-    const response = await fetch('http://localhost:3001/alumnos/' + id)
-    if (!response.ok) return null
-    const alumno = await response.json()
+export async function obtenerAutoresAPI(query) {
+    const response = await fetch('http://localhost:3001/autores')
+    const autores = await response.json()
 
     // Introducimos un retardo artificial
     await new Promise(resolve => setTimeout(resolve, 2000))
 
-    return alumno
+    return autores.filter(a => a.nombre.toLowerCase().includes(query))
 }
 
-
-
-export async function obtenerProfesoresAPI(query) {
-    const response = await fetch('http://localhost:3001/profesores')
-    const profesores = await response.json()
-
-    // Introducimos un retardo artificial
-    // await new Promise(resolve => setTimeout(resolve, 2000))
-
-    return profesores.filter(a => a.nombre.toLowerCase().includes(query))
-}
-
-
-
-export async function obtenerProfesorAPI(id) {
-    const response = await fetch('http://localhost:3001/profesores/' + id)
+export async function obtenerAutorAPI(id) {
+    const response = await fetch('http://localhost:3001/autores/' + id)
     if (!response.ok) return null
-    const profesor = await response.json()
+    const autor = await response.json()
 
     // Introducimos un retardo artificial
     await new Promise(resolve => setTimeout(resolve, 2000))
 
-    return profesor
+    return autor
 }
 
+export async function obtenerLibrosAPI(query) {
+    const response = await fetch('http://localhost:3001/libros')
+    const libros = await response.json()
 
+    // Introducimos un retardo artificial
+    await new Promise(resolve => setTimeout(resolve, 2000))
+
+    return libros.filter(l => l.titulo.toLowerCase().includes(query))
+}
+
+export async function obtenerLibroAPI(id) {
+    const response = await fetch('http://localhost:3001/libros/' + id)
+    if (!response.ok) return null
+    const libro = await response.json()
+
+    // Introducimos un retardo artificial
+    await new Promise(resolve => setTimeout(resolve, 2000))
+
+    return libro
+}
