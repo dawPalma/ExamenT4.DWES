@@ -15,6 +15,14 @@ const menu = [
     {
         text: 'Libros DB',
         href: '/libros-db'
+    },
+    {
+        text: 'Autores API',
+        href: '/autores-api'
+    },
+    {
+        text: 'Libros API',
+        href: '/libros-api'
     }
 ]
 
